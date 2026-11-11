@@ -1,0 +1,224 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>愛知県魚類地方名データベース｜Supabase連動試験版 Ver.4.7</title><style>
+:root{font-family:system-ui,-apple-system,"Yu Gothic",Meiryo,sans-serif;color:#1d2935;background:#fff}*{box-sizing:border-box}body{margin:0}header{background:#102f50;color:#fff;padding:20px max(20px,calc((100vw - 1180px)/2))}h1{font-size:23px;margin:0}header p{font-size:12px;color:#d7e1eb;margin:6px 0 0}main{max-width:1220px;margin:auto;padding:30px 20px 70px}.panel{border:1px solid #d6dde5;border-radius:4px;padding:22px}h2{font-size:19px;margin:0 0 18px}h3{font-size:16px;margin:0 0 12px}.fields{display:grid;grid-template-columns:2fr 1.2fr 1.2fr auto;gap:12px;align-items:end}label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}input,select,button{font:inherit;font-size:14px;border-radius:3px;min-height:42px}input,select{border:1px solid #bac5d0;padding:9px 10px;width:100%;background:#fff}button{cursor:pointer;border:1px solid #aab8c7;background:#fff;padding:9px 14px;color:#173a5b}button.primary{background:#123d66;color:white;border-color:#123d66}button:disabled{opacity:.4;cursor:default}.hint{font-size:12px;color:#617182;margin:13px 0 0}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:26px 0 12px}.toolbar strong{font-size:19px}.toolbar select{width:auto;min-height:36px}.tablewrap{overflow:auto;border:1px solid #d6dde5;border-radius:3px}table{width:100%;border-collapse:collapse;min-width:850px;font-size:14px}th{background:#edf2f6;color:#233f59;text-align:left;font-weight:650}th,td{padding:12px 13px;border-bottom:1px solid #e1e6eb;vertical-align:top}tr:last-child td{border-bottom:0}tbody tr:hover{background:#f8fafc}th button{border:0;min-height:0;padding:0;background:transparent;font-weight:inherit}td:first-child{font-weight:600}.link{border:0;padding:0;min-height:0;background:none;color:#125280;text-decoration:underline;text-underline-offset:3px;text-align:left}.pager{display:flex;justify-content:flex-end;gap:10px;align-items:center;margin-top:15px}.muted{font-size:12px;color:#617182}.notice{border-top:1px solid #e2e8ee;margin-top:28px;padding-top:15px}details{margin-top:20px}summary{cursor:pointer}dialog{width:min(960px,calc(100% - 28px));max-height:88vh;border:1px solid #bac5d0;border-radius:5px;padding:22px;color:#1d2935}dialog::backdrop{background:#0b1c2c80}.modalhead{display:flex;justify-content:space-between;align-items:center;gap:15px}.modalhead h2{margin:0}.modalhead button{min-height:35px}.modalbody{max-height:67vh;overflow:auto;margin-top:16px}.place{font-size:12px;color:#586a7a;display:block;margin-top:3px}footer{font-size:12px;color:#657487;margin-top:28px}@media(max-width:850px){h1{font-size:19px}.fields{grid-template-columns:1fr 1fr}.fields>div:first-child{grid-column:1/-1}.fields>button{grid-column:1/-1}main{padding:20px 12px 50px}.panel{padding:15px}}
+
+nav{max-width:1220px;margin:auto;padding:12px 20px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #d6dde5}nav button.active{background:#123d66;color:#fff} .view{display:none}.view.active{display:block}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.formgrid .wide{grid-column:1/-1}textarea{font:inherit;width:100%;min-height:90px;padding:10px;border:1px solid #bac5d0;border-radius:3px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.smallbtn{font-size:12px;min-height:30px;padding:5px 9px}.tag{font-size:12px;background:#edf2f6;padding:4px 7px;border-radius:3px}.warning{border-left:3px solid #8d7441;padding:10px 14px;background:#faf9f5;font-size:13px;line-height:1.7;margin:0 0 20px}.spaced{margin-top:24px}.panel+.panel{margin-top:18px}.mutedline{font-size:13px;color:#617182}.adminbox{border:1px solid #d6dde5;padding:18px;margin-top:18px}.adminbox[hidden]{display:none}.feedback{font-size:13px;min-height:20px;color:#173a5b}.recordtable{min-width:760px} .danger{color:#8c3434} @media(max-width:650px){.formgrid,.two{grid-template-columns:1fr}.formgrid .wide{grid-column:auto}}
+
+/* Ver.3.1: readability adjustments; layout and palette unchanged */
+body{font-size:16px;line-height:1.65}
+h1{font-size:27px}h2{font-size:22px}h3{font-size:19px}
+header p,.hint,.muted,.place,footer{font-size:14px}
+label,.mutedline,.feedback,.warning{font-size:15px}
+input,select,button,textarea{font-size:16px}
+table{font-size:16px}th,td{padding:13px 14px}
+.toolbar strong{font-size:21px}.smallbtn,.tag{font-size:14px}
+@media(max-width:850px){h1{font-size:23px}}
+.about{max-width:950px}.about h3{margin:30px 0 10px;padding-bottom:7px;border-bottom:1px solid #e1e6eb}.about p{line-height:1.95;margin:10px 0}.about a{color:#125280;overflow-wrap:anywhere}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script><script src="config.js"></script></head><body><header><h1>愛知県魚類地方名データベース</h1><p>愛知県で記録された魚類の地方名を調べる</p></header><nav aria-label="ページ切り替え"><button class="active" data-view="searchView">地方名検索</button><button data-view="reportView">情報提供・報告一覧</button><button data-view="referencesView">参考文献一覧</button><button data-view="aboutView">このサイトについて</button><button data-view="adminView">管理者ログイン</button></nav><main><div id="searchView" class="view active"><p id="syncStatus" class="hint" role="status">公開記録の読み込みを準備しています…</p><button id="syncNow" type="button">公開データを再読み込み</button><section class="panel"><h2>データ検索</h2><div class="fields"><div><label for="q">キーワード（地方名・標準和名・地名・資料名）</label><input id="q" placeholder="例：アイ、アユ、岡崎市"></div><div><label for="species">標準和名</label><select id="species"><option value="">すべて</option></select></div><div><label for="area">記録地域（地名ごとに検索）</label><input id="area" list="areaOptions" placeholder="例：河和、美浜町"><datalist id="areaOptions"></datalist></div><button id="search" class="primary">検索</button></div><p class="hint">地名が複数記録されている場合は、そのうち一つで検索できます。旧地名・現在の地名のどちらでも検索できます。条件はAND検索です。</p></section><div class="toolbar"><div><strong>検索結果 <span id="count">0</span> 件</strong> <span id="status" class="muted"></span></div><div><label for="limit" style="display:inline;margin-right:8px">表示件数</label><select id="limit"><option>25</option><option selected>50</option><option>100</option></select></div></div><div class="tablewrap"><table><thead><tr><th><button data-sort="name">地方名 ↕</button></th><th><button data-sort="species">標準和名 ↕</button></th><th><button data-sort="area">記録地域 ↕</button></th><th><button data-sort="source">資料名 ↕</button></th><th><button data-sort="year">資料採集年 ↕</button></th></tr></thead><tbody id="results"></tbody></table></div><div class="pager"><span id="range" class="muted"></span><button id="prev">前へ</button><span id="page"></span><button id="next">次へ</button></div><details class="notice"><summary>データと地名の取り扱い</summary><p class="muted">指定された資料および出典欄でウェブサイト・ブログと判別できる記録を除外しました。その他の出典は公開前に再点検してください。地域名は原文を保持し、提供された地名解説を検索補助に使用しています。備考・余談は表示していません。</p><p class="muted">魚種名を押すと、同じ標準和名の全記録・地域・出典を表示します。分類学的な同定は原簿の表記を使用しています。</p></details><footer>掲載内容は随時更新します。出典・利用条件は「このサイトについて」をご確認ください。</footer></div>
+<div id="reportView" class="view"><section class="panel"><h2>承認済みの報告</h2><p class="hint">管理者が内容を確認し、承認した報告だけがここに掲載されます。報告は研究データとして自動採用されません。</p><button id="loadApproved">承認済み報告を読み込む</button><p id="approvedStatus" role="status"></p><div class="tablewrap"><table><thead><tr><th>地方名</th><th>標準和名</th><th>地域</th><th>報告内容</th></tr></thead><tbody id="approvedRows"></tbody></table></div></section><section class="panel spaced"><h2>魚の地方名を報告する</h2><p class="hint">投稿にはログイン不要です。承認までは非公開です。氏名・メールアドレスの入力は不要です。公開前にサーバー側の迷惑投稿対策が必要です。個人名、住所、電話番号などの個人情報を本文に書かないでください。</p>
+<form id="publicReportForm" class="formgrid"><div><label for="repName">地方名（必須）</label><input id="repName" maxlength="120" required></div><div><label for="repSpecies">標準和名（任意）</label><input id="repSpecies" maxlength="120"></div><div class="wide"><label for="repArea">使用地域（必須）</label><input id="repArea" maxlength="300" required placeholder="例：岡崎市鳥川"></div><div><label for="repOrigin">情報の由来（必須）</label><select id="repOrigin" required><option value="">選択してください</option><option value="personal">自分・家族が使用</option><option value="heard">人から聞いた</option><option value="literature">文献で確認した</option><option value="other">その他</option></select></div><div class="wide"><label for="repDescription">詳しい情報（任意）</label><textarea id="repDescription" maxlength="3000" placeholder="使用されていた時期、呼び方の状況、文献名など"></textarea></div><div class="wide" style="position:absolute;left:-10000px" aria-hidden="true"><label for="repWebsite">ウェブサイト</label><input id="repWebsite" tabindex="-1" autocomplete="off"></div><div class="wide"><label style="font-weight:400"><input id="repConsent" type="checkbox" style="width:auto" required> 内容を管理者が審査し、承認された報告内容（地方名・魚種・地域・由来・説明）が公開されることに同意します。氏名・メールアドレスの入力は不要です。</label></div><div class="wide"><button id="repSubmit" class="primary" type="submit">報告を送信する</button><p id="repStatus" class="feedback" role="status" aria-live="polite"></p></div></form></section></div>
+<div id="referencesView" class="view"><section class="panel"><h2>参考文献一覧</h2><p class="hint">登録された資料名を表示します。著者・刊行年は登録情報がある場合のみ表示します。資料名の表記揺れが含まれる場合があります。</p><div class="formgrid"><div class="wide"><label for="refQuery">資料名・著者・刊行年を検索</label><input id="refQuery" placeholder="資料名などを入力"></div></div><p id="refStatus" class="feedback" role="status">参考文献の読み込みを準備しています…</p><button id="refRefresh" type="button">文献一覧を再読み込み</button><div class="tablewrap spaced"><table><thead><tr><th>資料名</th><th>著者</th><th>刊行年</th><th>関連記録</th></tr></thead><tbody id="refRows"></tbody></table></div></section></div><div id="aboutView" class="view"><section class="panel about"><h2>このサイトについて</h2>
+<h3>1. サイトの目的</h3><p>本サイト「愛知県魚類地方名データベース」は、愛知県内で使用されてきた魚類の地方名（地域ごとの呼び名）を収集・整理・公開し、学術研究や地域文化の継承に活用することを目的としています。</p><p>魚類の地方名は、地域の自然環境や漁業、人々の暮らしの中で育まれてきた文化的な記録です。現在では使われなくなった名称も含め、記録を保存し、誰でも検索できる形で公開することを目指しています。</p>
+<h3>2. データの出典と取り扱い</h3><p>文献調査および聞き取り調査によって収集した情報を掲載しています。地方名、標準和名、記録地域、出典などを可能な限り示しています。詳しくは「参考文献一覧」をご覧ください。</p><p>魚種名や地域名は原資料の表記を基本とするため、現在の分類体系や行政区分と一致しない場合があります。同じ地方名が複数の魚種を指す場合もあります。</p>
+<h3>3. お問い合わせ</h3><p>掲載情報の訂正依頼やその他のお問い合わせは、次のメールアドレスまでお願いいたします。</p><p><a href="mailto:matakaseigo@gmail.com">matakaseigo@gmail.com</a></p><p>本サイトは個人で運営しています。返信までお時間をいただく場合があります。</p>
+<h3>4. 情報提供について</h3><p>愛知県内で現在または過去に使われた魚類の地方名について、情報提供を受け付けています。投稿内容は管理者が確認し、公開の可否を判断します。文献等の出典がある場合は可能な範囲で照合し、裏付けが確認できない場合も、聞き取り・伝承に基づく未検証の報告であることを明示して公開することがあります。</p><p>投稿された記録は、今後の学術研究、調査報告、論文等に利用する場合があります。ご理解のうえで情報をご提供ください。投稿者の氏名・メールアドレスは求めません。投稿本文に個人情報や第三者の権利を侵害する内容を記載しないでください。内容は公開前に一部編集、非公開または削除する場合があります。</p>
+<h3>5. 著作権・利用条件</h3><p>本データベースは、文献および聞き取り調査から得られた情報を独自に整理したものです。地方名や記録地域などの事実情報そのものは、一般に著作権の保護対象とはなりません。一方、元資料の文章・図表等の著作物の権利は、それぞれの権利者に帰属します。本サイト独自の文章・構成等についても、法令に従ってご利用ください。</p><p>研究・出版等で利用する際は、可能な限り原資料を確認し、適切な出典を明示してください。</p>
+<h3>6. 免責事項</h3><p>掲載情報の正確性確保に努めていますが、個人による収集・整理のため、誤記、欠落、解釈の相違、古い分類名などが含まれる可能性があります。利用に際しては必要に応じて原資料をご確認ください。</p><p>利用条件を確認した情報を掲載するよう努めていますが、権利上の問題や誤りがある場合は上記連絡先までお知らせください。確認のうえ、必要に応じて訂正・非公開化・削除等を行います。</p>
+<h3>7. 更新について</h3><p>新たな文献や聞き取り、情報提供等に応じて、掲載内容を予告なく追加・修正・削除する場合があります。</p><p class="muted">サイト版：Ver.4.7 ／ 最終データ更新日：公開準備中（正式公開時に記載）</p>
+</section></div><div id="adminView" class="view"><section class="panel"><h2>管理者ログイン</h2><p class="hint">Supabase Authentication に接続して、管理者登録の有無を確認します。認証情報はSupabaseに直接送信されます。</p>
+<div class="formgrid" id="connectionSettings" hidden style="margin-top:18px"><div class="wide"><label for="sbUrl">Supabase Project URL</label><input id="sbUrl" placeholder="https://xxxxx.supabase.co" autocomplete="off"></div><div class="wide"><label for="sbKey">Publishable key（または旧 anon key）</label><input id="sbKey" placeholder="sb_publishable_..." autocomplete="off"></div><div class="wide"><button id="connectBtn" class="primary">接続設定を適用</button></div></div>
+<div id="loginFields" hidden class="adminbox"><form id="loginForm" class="formgrid"><div><label for="loginEmail">管理者メールアドレス</label><input id="loginEmail" type="email" required autocomplete="username"></div><div><label for="loginPassword">パスワード</label><input id="loginPassword" type="password" required autocomplete="current-password"></div><div class="wide"><button class="primary" type="submit">ログイン</button> <button id="logoutBtn" type="button">ログアウト</button></div></form></div>
+<p id="authMessage" class="feedback" role="status" style="margin-top:18px">接続設定を入力してください。</p>
+<div id="authVerified" class="adminbox" hidden><h3>管理者認証：成功</h3><p>管理者権限がデータベース側で確認できました。</p><p class="mutedline">管理者専用の登録・編集・投稿審査を利用できます。操作はSupabaseの本番データベースに反映されます。試験用の架空データは入力しないでください。</p><button id="testReadBtn">登録済み地方名の件数を確認</button><p id="readResult" class="feedback"></p>
+<h3>地方名の登録・編集</h3><p class="hint">登録した記録はSupabaseに保存されます。検索画面は再読み込みで反映されます。</p>
+<form id="fishEditForm" class="formgrid"><input id="editId" type="hidden"><div><label for="editName">地方名（必須）</label><input id="editName" required maxlength="120"></div><div><label for="editSpecies">標準和名</label><input id="editSpecies" maxlength="150"></div><div><label for="editArea">記録地域</label><input id="editArea" maxlength="300"></div><div><label for="editYear">資料採集年</label><input id="editYear" maxlength="80"></div><div class="wide"><label for="editReference">参考文献（登録済みの文献から選択・必須）</label><select id="editReference" required><option value="">文献を選択してください</option></select><p class="hint" id="editReferenceHelp">登録済みの公開参考文献を選択します。出典名と文献IDは同時に保存されます。</p></div><div class="wide"><label><input id="editPublic" type="checkbox" checked style="width:auto"> 公開する</label></div><div class="wide"><button class="primary" type="submit">記録を保存</button> <button id="clearEdit" type="button">入力をクリア</button></div></form><p id="editStatus" role="status"></p>
+<h3>Supabaseの記録（新しい順）</h3><button id="refreshFish" type="button">一覧を更新</button><div class="tablewrap"><table><thead><tr><th>ID</th><th>地方名</th><th>標準和名</th><th>地域</th><th>状態</th><th>操作</th></tr></thead><tbody id="onlineFishRows"></tbody></table></div>
+<h3>投稿審査</h3><button id="refreshReports" type="button">投稿一覧を更新</button><p id="moderationStatus" role="status"></p><div class="tablewrap"><table><thead><tr><th>ID</th><th>地方名・地域</th><th>投稿内容</th><th>状態</th><th>操作</th></tr></thead><tbody id="moderationRows"></tbody></table></div>
+</div>
+<p class="warning spaced">管理者専用の操作画面です。公開用キーのみ使用してください。<strong>service_role / secret key / Database password は絶対に入力しないでください。</strong> また、未公開データのアップロードはまだ行いません。</p></section></div>
+<dialog id="detail"><div class="modalhead"><h2 id="detailTitle"></h2><button id="close">閉じる ×</button></div><div class="modalbody"><p class="muted" id="detailCount"></p><div class="tablewrap"><table><thead><tr><th>地方名</th><th>記録地域（すべて）</th><th>出典</th><th>資料採集年</th></tr></thead><tbody id="detailRows"></tbody></table></div></div></dialog><script>
+let records=[];
+const placeNotes={"赤羽根": "田原市赤羽根町", "熱田": "名古屋市熱田区", "伊川津": "田原市伊川津町", "泉": "田原市江比間町の泉漁港", "宇津江": "田原市宇津江", "音羽": "豊川市音羽", "大井": "南知多町大井", "河和": "美浜町河和", "小中山": "田原市小中山町", "神戸": "田原市神戸町", "西条": "海部郡大治町西条", "下山村": "旧東加茂郡", "新知": "知多市新知", "丹陽": "旧丹羽郡丹陽", "鳥川": "岡崎市鳥川", "宝飯": "旧宝飯郡。現蒲郡、豊川、豊橋の一部", "豊浜": "南知多町豊浜", "中島": "旧中島郡。現一宮、稲沢、清須市の一部", "西浦": "蒲郡市西浦", "西加茂": "旧西加茂郡", "西春日井": "旧西春日井郡", "葉栗": "旧葉栗郡、現在の一宮及江南市の一部", "東春日井": "旧東春日井郡", "碧海": "旧碧海郡", "宮崎": "旧額田郡宮崎村、現在は岡崎市", "三谷": "蒲郡市三谷", "本宿": "岡崎市本宿"};
+const $=id=>document.getElementById(id);const collator=new Intl.Collator('ja');const norm=s=>String(s??'').normalize('NFKC').toLowerCase().trim();const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const tokens=s=>String(s||'').split(/[、，,／\/・;；\n\r]+|\s*[･·]\s*/).map(x=>x.trim()).filter(Boolean);
+function areas(r){let parts=tokens(r.area);return parts.length?parts:[]}
+function areaText(r){return areas(r).map(p=>p+' '+(placeNotes[p]||'')).join(' ')}
+function matchesArea(r,q){if(!q)return true;let a=norm(q);return areas(r).some(p=>norm(p).includes(a)||norm(placeNotes[p]||'').includes(a))||norm(r.currentArea||'').includes(a)}
+function placeHtml(s){return esc(s||'—')+(areas({area:s}).map(p=>placeNotes[p]?'<span class="place">'+esc(p)+'：'+esc(placeNotes[p])+'</span>':'').join(''))}
+function refreshFilters(){
+ const previousSpecies=$('species').value;
+ const species=[...new Set(records.map(r=>r.species).filter(Boolean))].sort(collator.compare);
+ $('species').replaceChildren(new Option('すべて',''),...species.map(x=>new Option(x,x)));
+ if(species.includes(previousSpecies))$('species').value=previousSpecies;
+ const locs=[...new Set(records.flatMap(r=>areas(r)))].sort(collator.compare);
+ $('areaOptions').replaceChildren(...locs.map(x=>{const o=document.createElement('option');o.value=x;return o;}));
+}
+refreshFilters();
+let filtered=records.slice(),page=0,sort='name',asc=true;
+function apply(){const q=norm($('q').value),s=$('species').value,a=$('area').value;filtered=records.filter(r=>(!s||r.species===s)&&matchesArea(r,a)&&(!q||[r.name,r.species,r.source,r.area,r.currentArea,areaText(r)].some(x=>norm(x).includes(q))));page=0;render()}
+function render(){filtered.sort((a,b)=>(asc?1:-1)*collator.compare(String(a[sort]??''),String(b[sort]??'')));const size=+$('limit').value,total=filtered.length,start=page*size,rows=filtered.slice(start,start+size);$('count').textContent=total.toLocaleString('ja-JP');$('status').textContent=' / 全'+records.length.toLocaleString('ja-JP')+'記録';$('results').innerHTML=rows.length?rows.map(r=>'<tr><td>'+esc(r.name)+'</td><td>'+(r.species?'<button class="link" data-species="'+esc(r.species)+'">'+esc(r.species)+'</button>':'—')+'</td><td>'+placeHtml(r.area)+'</td><td>'+esc(r.source||'—')+'</td><td>'+esc(r.year||'—')+'</td></tr>').join(''):'<tr><td colspan="5">一致する記録はありません。</td></tr>';$('range').textContent=total?(start+1)+'–'+Math.min(start+size,total)+' / '+total:'0 / 0';$('page').textContent=(page+1)+' / '+Math.max(1,Math.ceil(total/size));$('prev').disabled=page===0;$('next').disabled=start+size>=total}
+function showSpecies(s){const found=records.filter(r=>r.species===s).sort((a,b)=>collator.compare(a.name,b.name));$('detailTitle').textContent=s+' の地方名';$('detailCount').textContent=found.length.toLocaleString('ja-JP')+'件の出典記録（地域・資料名は原簿の記載を保持）';$('detailRows').innerHTML=found.map(r=>'<tr><td>'+esc(r.name)+'</td><td>'+placeHtml(r.area)+'</td><td>'+esc(r.source||'—')+'</td><td>'+esc(r.year||'—')+'</td></tr>').join('');$('detail').showModal()}
+$('results').addEventListener('click',e=>{let b=e.target.closest('[data-species]');if(b)showSpecies(b.dataset.species)});$('close').onclick=()=>$('detail').close();$('search').onclick=apply;for(const id of ['q','area'])$(id).addEventListener('keydown',e=>{if(e.key==='Enter')apply()});$('species').onchange=apply;$('limit').onchange=()=>{page=0;render()};$('prev').onclick=()=>{page--;render()};$('next').onclick=()=>{page++;render()};document.querySelectorAll('[data-sort]').forEach(b=>b.onclick=()=>{let k=b.dataset.sort;asc=sort===k?!asc:true;sort=k;page=0;render()});render();
+
+
+document.querySelectorAll('nav [data-view]').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav [data-view]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===b.dataset.view));});
+// Supabase Auth connection test. No browser-side administrator override.
+let sb=null;
+const msg=(v)=>{$('authMessage').textContent=v};
+$('connectBtn').onclick=async()=>{
+ const url=$('sbUrl').value.trim(),key=$('sbKey').value.trim();
+ if(!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(url)){msg('Project URLの形式を確認してください。');return}
+ if(!key||key.startsWith('sb_secret_')||key.startsWith('eyJ')===false&&key.startsWith('sb_publishable_')===false){msg('公開用のpublishable key（または旧anon key）を入力してください。');return}
+ if(!window.supabase){msg('Supabaseライブラリを読み込めません。インターネット接続を確認してください。');return}
+ try{sb=window.supabase.createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});$('loginFields').hidden=false;$('authVerified').hidden=true;msg('接続設定を読み込みました。検索と報告を利用できます。管理者はログインしてください。');await loadPublicRecords();await loadReferences()}catch(e){msg('接続設定に失敗しました：'+e.message)}
+};
+$('loginForm').onsubmit=async e=>{
+ e.preventDefault();if(!sb)return;
+ msg('認証を確認しています…');$('authVerified').hidden=true;
+ try{
+  const {data,error}=await sb.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});
+  $('loginPassword').value='';
+  if(error)throw error;
+  const result=await sb.rpc('is_admin');
+  if(result.error)throw result.error;
+  if(result.data!==true){await sb.auth.signOut();msg('ログインできましたが、管理者として登録されていません。admin_usersの登録を確認してください。');return}
+  $('authVerified').hidden=false;msg('管理者ログインと権限確認に成功しました。');await refreshOnlineFish();await refreshModeration();
+ }catch(err){msg('ログインまたは権限確認に失敗しました：'+err.message)}
+};
+$('logoutBtn').onclick=async()=>{if(sb)await sb.auth.signOut();$('authVerified').hidden=true;$('loginPassword').value='';$('onlineFishRows').replaceChildren();$('moderationRows').replaceChildren();msg('ログアウトしました。')};
+$('testReadBtn').onclick=async()=>{if(!sb)return;const {count,error}=await sb.from('fish_names').select('id',{count:'exact',head:true});$('readResult').textContent=error?'読み取りエラー：'+error.message:'Supabaseに登録されている地方名：'+count+' 件'};
+
+
+// Fetch every public record in pages. Supabase defaults to a 1000-row API limit.
+let syncRequest=0;
+async function loadPublicRecords(){
+ const request=++syncRequest;
+ const label=$('syncStatus');
+ if(!sb){label.textContent='Supabaseの接続設定を適用してください。';return;}
+ label.textContent='公開記録を読み込み中…';
+ const rows=[];const batch=500;
+ try{
+  for(let start=0;;start+=batch){
+   const {data,error}=await sb.from('fish_names')
+     .select('id,local_name,standard_name,location_text,current_location,source_text,collected_year')
+     .eq('is_public',true).order('id',{ascending:true}).range(start,start+batch-1);
+   if(error)throw error;
+   if(request!==syncRequest)return;
+   rows.push(...data);
+   if(data.length<batch)break;
+   if(start>100000)throw new Error('取得上限を超えました');
+  }
+  records=rows.map(r=>({id:r.id,name:r.local_name||'',species:r.standard_name||'',
+    area:r.location_text||'',currentArea:r.current_location||'',source:r.source_text||'',year:r.collected_year||''}));
+  refreshFilters();apply();
+  label.textContent='Supabaseと同期済み：公開記録 '+records.length.toLocaleString('ja-JP')+' 件（更新日時：'+new Date().toLocaleString('ja-JP')+'）';
+ }catch(err){
+  if(request!==syncRequest)return;
+  records=[];refreshFilters();apply();
+  label.textContent='公開データの取得に失敗しました：'+err.message+'。接続設定・RLS・通信環境を確認してください。';
+ }
+}
+$('syncNow').onclick=loadPublicRecords;
+
+// Online administrator operations; database RLS is the actual authorization boundary.
+const onlineFish=new Map();
+const requireAdmin=()=>{if(!sb||$('authVerified').hidden)throw new Error('管理者ログインが必要です')};
+async function refreshOnlineFish(){
+ try{requireAdmin();const {data,error}=await sb.from('fish_names').select('id,local_name,standard_name,location_text,collected_year,source_text,reference_id,is_public').order('id',{ascending:false}).limit(100);if(error)throw error;
+ onlineFish.clear();for(const r of data)onlineFish.set(String(r.id),r);
+ $('onlineFishRows').innerHTML=data.map(r=>`<tr><td>${r.id}</td><td>${esc(r.local_name)}</td><td>${esc(r.standard_name||'')}</td><td>${esc(r.location_text||'')}</td><td>${r.is_public?'公開':'非公開'}</td><td><button data-edit="${r.id}">編集</button> <button data-hide="${r.id}">${r.is_public?'非公開にする':'公開する'}</button></td></tr>`).join('')||'<tr><td colspan="6">まだ登録がありません。</td></tr>';
+ }catch(e){$('editStatus').textContent='一覧取得エラー：'+e.message}
+}
+$('refreshFish').onclick=refreshOnlineFish;
+$('onlineFishRows').onclick=async e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.edit||b.dataset.hide;const r=onlineFish.get(id);if(!r)return;
+ if(b.dataset.edit){$('editId').value=id;$('editName').value=r.local_name;$('editSpecies').value=r.standard_name||'';$('editArea').value=r.location_text||'';$('editYear').value=r.collected_year||'';$('editReference').value=String(r.reference_id||'');if(!$('editReference').value){$('editStatus').textContent='この記録の参考文献は現在の選択肢にありません。保存前に文献を選択してください。';}$('editPublic').checked=r.is_public;$('editName').focus();return}
+ if(!confirm('この記録の公開状態を変更しますか？'))return;
+ const {error}=await sb.from('fish_names').update({is_public:!r.is_public}).eq('id',r.id);$('editStatus').textContent=error?'更新失敗：'+error.message:'公開状態を変更しました。';if(!error){await refreshOnlineFish();await loadPublicRecords();}
+};
+$('clearEdit').onclick=()=>{$('fishEditForm').reset();$('editId').value='';$('editStatus').textContent=''};
+$('fishEditForm').onsubmit=async e=>{e.preventDefault();try{requireAdmin();const obj={local_name:$('editName').value.trim(),standard_name:$('editSpecies').value.trim()||null,location_text:$('editArea').value.trim()||null,collected_year:$('editYear').value.trim()||null,reference_id:Number($('editReference').value),source_text:publicReferences.find(r=>r.id===Number($('editReference').value))?.citation||null,is_public:$('editPublic').checked};if(!obj.local_name)throw new Error('地方名は必須です');if(!obj.reference_id||!obj.source_text)throw new Error('登録済みの参考文献を選択してください');const id=$('editId').value;
+ if(!confirm(id?'既存の記録を更新しますか？':'この記録をSupabaseに新規登録しますか？'))return;
+ const q=id?sb.from('fish_names').update(obj).eq('id',Number(id)):sb.from('fish_names').insert(obj);const {error}=await q;if(error)throw error;
+ $('editStatus').textContent='保存しました（Supabase）。';$('clearEdit').click();await refreshOnlineFish();await loadPublicRecords();
+ }catch(err){$('editStatus').textContent='保存できません：'+err.message}};
+const moderation=new Map();
+async function refreshModeration(){try{requireAdmin();const {data,error}=await sb.from('reports').select('id,local_name,standard_name,location_text,description,status,information_source,submitted_at').order('submitted_at',{ascending:false}).limit(100);if(error)throw error;moderation.clear();data.forEach(r=>moderation.set(String(r.id),r));$('moderationRows').innerHTML=data.map(r=>`<tr><td>${r.id}</td><td>${esc(r.local_name)} / ${esc(r.location_text)}</td><td>${esc(r.description||'')}</td><td>${esc(r.status)}</td><td><button data-status="approved" data-id="${r.id}">承認</button> <button data-status="on_hold" data-id="${r.id}">保留</button> <button data-status="rejected" data-id="${r.id}">却下</button></td></tr>`).join('')||'<tr><td colspan="5">投稿はありません。</td></tr>';
+}catch(e){$('moderationStatus').textContent='投稿取得エラー：'+e.message}}
+$('refreshReports').onclick=refreshModeration;
+$('moderationRows').onclick=async e=>{const b=e.target.closest('button[data-status]');if(!b)return;const id=Number(b.dataset.id),status=b.dataset.status;if(!confirm('投稿 #'+id+' を '+({approved:'承認',on_hold:'保留',rejected:'却下'})[status]+' に変更しますか？'))return;
+ const {data:{user},error:ue}=await sb.auth.getUser();if(ue||!user){$('moderationStatus').textContent='再ログインしてください。';return}
+ const {error}=await sb.from('reports').update({status,reviewed_at:new Date().toISOString(),reviewed_by:user.id}).eq('id',id);$('moderationStatus').textContent=error?'更新失敗：'+error.message:'投稿の状態を更新しました。';if(!error)await refreshModeration();
+};
+let reportSending=false;
+$('publicReportForm').addEventListener('submit',async e=>{
+ e.preventDefault();const status=$('repStatus');
+ if(reportSending)return;
+ if(!sb){status.textContent='先に管理者ログイン画面でSupabase接続設定を適用してください。';return;}
+ if($('repWebsite').value.trim()){status.textContent='送信を受け付けました。';return;}
+ const local=$('repName').value.trim(),area=$('repArea').value.trim(),origin=$('repOrigin').value;
+ if(!local||!area||!['personal','heard','literature','other'].includes(origin)||!$('repConsent').checked){status.textContent='必須項目と同意欄を確認してください。';return;}
+ reportSending=true;$('repSubmit').disabled=true;status.textContent='送信中…';
+ try{
+  const {error}=await sb.rpc('submit_fish_report',{
+   p_local_name:local,p_location_text:area,p_information_source:origin,
+   p_standard_name:$('repSpecies').value.trim()||null,
+   p_description:$('repDescription').value.trim()||null,
+   p_contact_email:null
+  });
+  if(error)throw error;
+  $('publicReportForm').reset();status.textContent='報告を受け付けました。管理者の承認後に公開されます。';
+ }catch(err){status.textContent='送信できませんでした：'+(err.message||String(err));}
+ finally{reportSending=false;$('repSubmit').disabled=false;}
+});
+// References: load public bibliography, link to search by exact source citation.
+let publicReferences=[];
+async function loadReferences(){
+ const label=$('refStatus');
+ if(!sb){label.textContent='Supabase接続後に読み込みます。';return;}
+ label.textContent='参考文献を読み込み中…';
+ try{
+  const rows=[];const batch=500;
+  for(let start=0;;start+=batch){
+   const {data,error}=await sb.from('references').select('id,citation,author,title,publication_year').eq('is_public',true).order('id',{ascending:true}).range(start,start+batch-1);
+   if(error)throw error;rows.push(...data);if(data.length<batch)break;
+   if(start>100000)throw new Error('取得上限を超えました');
+  }
+  publicReferences=rows;renderReferences();refreshReferenceSelect();
+ }catch(e){label.textContent='文献取得エラー：'+e.message;}
+}
+function refreshReferenceSelect(){
+ const sel=$('editReference');const prev=sel.value;
+ sel.replaceChildren(new Option('文献を選択してください',''));
+ for(const r of publicReferences.slice().sort((a,b)=>collator.compare(a.citation||'',b.citation||''))){
+  sel.add(new Option((r.citation||r.title||'名称なし')+(r.publication_year?'（'+r.publication_year+'）':''),String(r.id)));
+ }
+ sel.value=prev;
+}
+function renderReferences(){
+ const q=norm($('refQuery').value);
+ const rows=publicReferences.filter(r=>[r.citation,r.author,r.title,r.publication_year].some(v=>norm(v).includes(q)));
+ $('refStatus').textContent='表示 '+rows.length+'件 / 登録済み公開資料 '+publicReferences.length+'件';
+ $('refRows').innerHTML=rows.map(r=>'<tr><td>'+esc(r.citation||r.title||'—')+'</td><td>'+esc(r.author||'—')+'</td><td>'+esc(r.publication_year||'—')+'</td><td><button class="link" data-citation="'+esc(r.citation||'')+'">記録を検索</button></td></tr>').join('')||'<tr><td colspan="4">該当する文献はありません。</td></tr>';
+}
+$('refQuery').addEventListener('input',renderReferences);
+$('refRefresh').onclick=loadReferences;
+$('refRows').addEventListener('click',e=>{
+ const b=e.target.closest('[data-citation]');if(!b)return;
+ $('q').value=b.dataset.citation;$('species').value='';$('area').value='';
+ document.querySelector('nav [data-view="searchView"]').click();apply();
+ $('syncStatus').textContent+=' / 資料名で検索中（原簿の資料名と一致しない場合は0件となります）';
+});
+// GitHub Pages configuration: public project URL and publishable key only.
+window.addEventListener('DOMContentLoaded', async () => {
+  const cfg=window.AICHI_FISH_CONFIG||{};
+  const url=String(cfg.supabaseUrl||'').trim();
+  const key=String(cfg.supabasePublishableKey||'').trim();
+  if (!url || !key || url.includes('YOUR_PROJECT')) {
+    $('syncStatus').textContent='公開用の接続設定が未完了です。管理者にお問い合わせください。';
+    $('refStatus').textContent='接続設定が未完了です。';
+    return;
+  }
+  $('sbUrl').value=url;
+  $('sbKey').value=key;
+  $('connectBtn').click();
+});
+$('loadApproved').onclick=async()=>{if(!sb){$('approvedStatus').textContent='管理者画面で接続設定を適用してください。';return}const {data,error}=await sb.rpc('list_approved_reports');if(error){$('approvedStatus').textContent='取得エラー：'+error.message;return}$('approvedStatus').textContent=data.length+'件';$('approvedRows').innerHTML=data.map(r=>`<tr><td>${esc(r.local_name)}</td><td>${esc(r.standard_name||'')}</td><td>${esc(r.location_text)}</td><td>${esc(r.description||'')}</td></tr>`).join('')||'<tr><td colspan="4">承認済みの報告はありません。</td></tr>'};
+</script></body></html>
