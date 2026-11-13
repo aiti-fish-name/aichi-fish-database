@@ -14,7 +14,7 @@ table{font-size:16px}th,td{padding:13px 14px}
 @media(max-width:850px){h1{font-size:23px}}
 .about{max-width:950px}.about h3{margin:30px 0 10px;padding-bottom:7px;border-bottom:1px solid #e1e6eb}.about p{line-height:1.95;margin:10px 0}.about a{color:#125280;overflow-wrap:anywhere}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script><script src="config.js"></script></head><body><header><h1>愛知県魚類地方名データベース</h1><p>愛知県で記録された魚類の地方名を調べる</p></header><nav aria-label="ページ切り替え"><button class="active" data-view="searchView">地方名検索</button><button data-view="reportView">情報提供・報告一覧</button><button data-view="referencesView">参考文献一覧</button><button data-view="aboutView">このサイトについて</button><button data-view="adminView">管理者ログイン</button></nav><main><div id="searchView" class="view active"><p id="syncStatus" class="hint" role="status">公開記録を読み込んでいます…</p><button id="syncNow" type="button">公開データを再読み込み</button><section class="panel"><h2>データ検索</h2><div class="fields"><div><label for="q">キーワード（地方名・標準和名・地名・資料名）</label><input id="q" placeholder="例：アイ、アユ、岡崎市"></div><div><label for="species">標準和名</label><select id="species"><option value="">すべて</option></select></div><div><label for="area">記録地域（地名ごとに検索）</label><input id="area" list="areaOptions" placeholder="例：河和、美浜町"><datalist id="areaOptions"></datalist></div><button id="search" class="primary">検索</button></div><p class="hint">地名が複数記録されている場合は、そのうち一つで検索できます。旧地名・現在の地名のどちらでも検索できます。条件はAND検索です。</p></section><div class="toolbar"><div><strong>検索結果 <span id="count">0</span> 件</strong> <span id="status" class="muted"></span></div><div><label for="limit" style="display:inline;margin-right:8px">表示件数</label><select id="limit"><option>25</option><option selected>50</option><option>100</option></select></div></div><div class="tablewrap"><table><thead><tr><th><button data-sort="name">地方名 ↕</button></th><th><button data-sort="species">標準和名 ↕</button></th><th><button data-sort="area">記録地域 ↕</button></th><th><button data-sort="source">資料名 ↕</button></th><th><button data-sort="year">資料採集年 ↕</button></th></tr></thead><tbody id="results"></tbody></table></div><div class="pager"><span id="range" class="muted"></span><button id="prev">前へ</button><span id="page"></span><button id="next">次へ</button></div><details class="notice"><summary>データと地名の取り扱い</summary><p class="muted">指定された資料および出典欄でウェブサイト・ブログと判別できる記録を除外しました。その他の出典は公開前に再点検してください。地域名は原文を保持し、提供された地名解説を検索補助に使用しています。備考・余談は表示していません。</p><p class="muted">魚種名を押すと、同じ標準和名の全記録・地域・出典を表示します。分類学的な同定は原簿の表記を使用しています。</p></details><footer>掲載内容は随時更新します。出典・利用条件は「このサイトについて」をご確認ください。</footer></div>
 <div id="reportView" class="view"><section class="panel"><h2>承認済みの報告</h2><p class="hint">管理者が内容を確認し、承認した報告だけがここに掲載されます。報告は研究データとして自動採用されません。</p><button id="loadApproved">承認済み報告を読み込む</button><p id="approvedStatus" role="status"></p><div class="tablewrap"><table><thead><tr><th>地方名</th><th>標準和名</th><th>地域</th><th>報告内容</th></tr></thead><tbody id="approvedRows"></tbody></table></div></section><section class="panel spaced"><h2>魚の地方名を報告する</h2><p class="hint">投稿にはログイン不要です。承認までは非公開です。氏名・メールアドレスの入力は不要です。投稿数には受付制限を設けています。個人名、住所、電話番号などの個人情報を本文に書かないでください。</p>
-<form id="publicReportForm" class="formgrid"><div><label for="repName">地方名（必須）</label><input id="repName" maxlength="120" required></div><div><label for="repSpecies">標準和名（任意）</label><input id="repSpecies" maxlength="120"></div><div class="wide"><label for="repArea">使用地域（必須）</label><input id="repArea" maxlength="300" required placeholder="例：岡崎市鳥川"></div><div><label for="repOrigin">情報の由来（必須）</label><select id="repOrigin" required><option value="">選択してください</option><option value="personal">自分・家族が使用</option><option value="heard">人から聞いた</option><option value="literature">文献で確認した</option><option value="other">その他</option></select></div><div class="wide"><label for="repDescription">詳しい情報（任意）</label><textarea id="repDescription" maxlength="3000" placeholder="使用されていた時期、呼び方の状況、文献名など"></textarea></div><div class="wide" style="position:absolute;left:-10000px" aria-hidden="true"><label for="repWebsite">ウェブサイト</label><input id="repWebsite" tabindex="-1" autocomplete="off"></div><div class="wide"><label style="font-weight:400"><input id="repConsent" type="checkbox" style="width:auto" required> 内容を管理者が審査し、承認された報告内容（地方名・魚種・地域・由来・説明）が公開されることに同意します。氏名・メールアドレスの入力は不要です。</label></div><div class="wide"><button id="repSubmit" class="primary" type="submit">報告を送信する</button><p id="repStatus" class="feedback" role="status" aria-live="polite"></p></div></form></section></div>
+<form id="publicReportForm" class="formgrid"><div><label for="repName">地方名（必須）</label><input id="repName" maxlength="120" required></div><div><label for="repSpecies">標準和名（必須）</label><input id="repSpecies" maxlength="120" required placeholder="例：アユ、ウナギ、川の魚、海の魚" aria-describedby="repSpeciesHelp"><p class="hint" id="repSpeciesHelp">※正確な標準和名がわからない場合は、この欄に「海の魚」「川の魚」などの大まかな分類を入力してください。また、「詳しい情報」の欄に、魚の見た目や大きさ、生息場所など、わかる範囲で情報をご記入いただけますと幸いです。</p></div><div class="wide"><label for="repArea">使用地域（必須）</label><input id="repArea" maxlength="300" required placeholder="例：岡崎市鳥川"></div><div><label for="repOrigin">情報の由来（必須）</label><select id="repOrigin" required><option value="">選択してください</option><option value="personal">自分・家族が使用</option><option value="heard">人から聞いた</option><option value="literature">文献で確認した</option><option value="other">その他</option></select></div><div class="wide"><label for="repDescription">詳しい情報（任意・魚種が不明な場合は特徴をご記入ください）</label><textarea id="repDescription" maxlength="3000" placeholder="使用されていた時期、呼び方の状況、文献名など"></textarea></div><div class="wide" style="position:absolute;left:-10000px" aria-hidden="true"><label for="repWebsite">ウェブサイト</label><input id="repWebsite" tabindex="-1" autocomplete="off"></div><div class="wide"><label style="font-weight:400"><input id="repConsent" type="checkbox" style="width:auto" required> 内容を管理者が審査し、承認された報告内容（地方名・魚種・地域・由来・説明）が公開されることに同意します。氏名・メールアドレスの入力は不要です。</label></div><div class="wide"><button id="repSubmit" class="primary" type="submit">報告を送信する</button><p id="repStatus" class="feedback" role="status" aria-live="polite"></p></div></form></section></div>
 <div id="referencesView" class="view"><section class="panel"><h2>参考文献一覧</h2><p class="hint">登録された資料名を表示します。著者・刊行年は登録情報がある場合のみ表示します。書誌情報に未確認の項目がある場合は空欄で表示します。</p><div class="formgrid"><div class="wide"><label for="refQuery">資料名・著者・刊行年を検索</label><input id="refQuery" placeholder="資料名などを入力"></div></div><p id="refStatus" class="feedback" role="status">参考文献を読み込んでいます…</p><button id="refRefresh" type="button">文献一覧を再読み込み</button><div class="tablewrap spaced"><table><thead><tr><th>資料名</th><th>著者</th><th>刊行年</th><th>関連記録</th></tr></thead><tbody id="refRows"></tbody></table></div></section></div><div id="aboutView" class="view"><section class="panel about"><h2>このサイトについて</h2>
 <h3>1. サイトの目的</h3><p>本サイト「愛知県魚類地方名データベース」は、愛知県内で使用されてきた魚類の地方名（地域ごとの呼び名）を収集・整理・公開し、学術研究や地域文化の継承に活用することを目的としています。</p><p>魚類の地方名は、地域の自然環境や漁業、人々の暮らしの中で育まれてきた文化的な記録です。現在では使われなくなった名称も含め、記録を保存し、誰でも検索できる形で公開することを目指しています。</p>
 <h3>2. データの出典と取り扱い</h3><p>文献調査および聞き取り調査によって収集した情報を掲載しています。地方名、標準和名、記録地域、出典などを可能な限り示しています。詳しくは「参考文献一覧」をご覧ください。</p><p>魚種名や地域名は原資料の表記を基本とするため、現在の分類体系や行政区分と一致しない場合があります。同じ地方名が複数の魚種を指す場合もあります。</p>
@@ -22,9 +22,9 @@ table{font-size:16px}th,td{padding:13px 14px}
 <h3>4. 情報提供について</h3><p>愛知県内で現在または過去に使われた魚類の地方名について、情報提供を受け付けています。投稿内容は管理者が確認し、公開の可否を判断します。文献等の出典がある場合は可能な範囲で照合し、裏付けが確認できない場合も、聞き取り・伝承に基づく未検証の報告であることを明示して公開することがあります。</p><p>投稿された記録は、今後の学術研究、調査報告、論文等に利用する場合があります。ご理解のうえで情報をご提供ください。投稿者の氏名・メールアドレスは求めません。投稿本文に個人情報や第三者の権利を侵害する内容を記載しないでください。内容は公開前に一部編集、非公開または削除する場合があります。</p>
 <h3>5. 著作権・利用条件</h3><p>本データベースは、文献および聞き取り調査から得られた情報を独自に整理したものです。地方名や記録地域などの事実情報そのものは、一般に著作権の保護対象とはなりません。一方、元資料の文章・図表等の著作物の権利は、それぞれの権利者に帰属します。本サイト独自の文章・構成等についても、法令に従ってご利用ください。</p><p>研究・出版等で利用する際は、可能な限り原資料を確認し、適切な出典を明示してください。</p>
 <h3>6. 免責事項</h3><p>掲載情報の正確性確保に努めていますが、個人による収集・整理のため、誤記、欠落、解釈の相違、古い分類名などが含まれる可能性があります。利用に際しては必要に応じて原資料をご確認ください。</p><p>利用条件を確認した情報を掲載するよう努めていますが、権利上の問題や誤りがある場合は上記連絡先までお知らせください。確認のうえ、必要に応じて訂正・非公開化・削除等を行います。</p>
-<h3>7. 更新について</h3><p>新たな文献や聞き取り、情報提供等に応じて、掲載内容を予告なく追加・修正・削除する場合があります。</p><p class="muted">サイト版：Ver.5.1 ／ データ更新：随時（更新履歴は管理者が確認）</p>
+<h3>7. 更新について</h3><p>新たな文献や聞き取り、情報提供等に応じて、掲載内容を予告なく追加・修正・削除する場合があります。</p><p class="muted">サイト版：Ver.5.2 ／ データ更新：随時（更新履歴は管理者が確認）</p>
 </section></div><div id="adminView" class="view"><section class="panel"><h2>管理者ログイン</h2><p class="hint">Supabase Authentication に接続して、管理者登録の有無を確認します。認証情報はSupabaseに直接送信されます。</p>
-<div class="formgrid" id="connectionSettings" hidden style="margin-top:18px"><div class="wide"><label for="sbUrl">Supabase Project URL</label><input id="sbUrl" placeholder="https://xxxxx.supabase.co" autocomplete="off"></div><div class="wide"><label for="sbKey">Publishable key（または旧 anon key）</label><input id="sbKey" placeholder="sb_publishable_..." autocomplete="off"></div><div class="wide"><button id="connectBtn" class="primary">接続設定を適用</button></div></div>
+
 <div id="loginFields" hidden class="adminbox"><form id="loginForm" class="formgrid"><div><label for="loginEmail">管理者メールアドレス</label><input id="loginEmail" type="email" required autocomplete="username"></div><div><label for="loginPassword">パスワード</label><input id="loginPassword" type="password" required autocomplete="current-password"></div><div class="wide"><button class="primary" type="submit">ログイン</button> <button id="logoutBtn" type="button">ログアウト</button></div></form></div>
 <p id="authMessage" class="feedback" role="status" style="margin-top:18px">接続を確認しています。</p>
 <div id="authVerified" class="adminbox" hidden><h3>管理者認証：成功</h3><p>管理者権限がデータベース側で確認できました。</p><p class="mutedline">管理者専用の登録・編集・投稿審査を利用できます。操作はSupabaseの本番データベースに反映されます。登録・編集した内容は公開設定に応じて反映されます。</p><button id="testReadBtn">登録済み地方名の件数を確認</button><p id="readResult" class="feedback"></p>
@@ -63,13 +63,24 @@ document.querySelectorAll('nav [data-view]').forEach(b=>b.onclick=()=>{document.
 // Supabase Auth connection test. No browser-side administrator override.
 let sb=null;
 const msg=(v)=>{$('authMessage').textContent=v};
-$('connectBtn').onclick=async()=>{
- const url=$('sbUrl').value.trim(),key=$('sbKey').value.trim();
- if(!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(url)){msg('Project URLの形式を確認してください。');return}
- if(!key||key.startsWith('sb_secret_')||key.startsWith('eyJ')===false&&key.startsWith('sb_publishable_')===false){msg('公開用のpublishable key（または旧anon key）を入力してください。');return}
- if(!window.supabase){msg('Supabaseライブラリを読み込めません。インターネット接続を確認してください。');return}
- try{sb=window.supabase.createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});$('loginFields').hidden=false;$('authVerified').hidden=true;msg('接続設定を読み込みました。検索と報告を利用できます。管理者はログインしてください。');await loadPublicRecords();await loadReferences()}catch(e){msg('接続設定に失敗しました：'+e.message)}
-};
+async function initializeSupabase(){
+ const cfg=window.AICHI_FISH_CONFIG||{};
+ const url=String(cfg.supabaseUrl||'').trim(),key=String(cfg.supabasePublishableKey||'').trim();
+ if(!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(url)||!key||key.startsWith('sb_secret_')||key.includes('REPLACE_ME')){
+  msg('公開用の接続設定が正しくありません。管理者にお問い合わせください。');
+  $('syncStatus').textContent='接続設定を確認してください。';
+  $('refStatus').textContent='接続設定を確認してください。';
+  return;
+ }
+ if(!window.supabase){msg('Supabaseライブラリを読み込めません。インターネット接続を確認してください。');return;}
+ try{
+  sb=window.supabase.createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
+  $('loginFields').hidden=false;
+  $('authVerified').hidden=true;
+  msg('管理者はメールアドレスとパスワードでログインしてください。');
+  await Promise.all([loadPublicRecords(),loadReferences()]);
+ }catch(e){msg('接続に失敗しました：'+e.message);$('syncStatus').textContent='接続に失敗しました：'+e.message;}
+}
 $('loginForm').onsubmit=async e=>{
  e.preventDefault();if(!sb)return;
  msg('認証を確認しています…');$('authVerified').hidden=true;
@@ -151,15 +162,15 @@ let reportSending=false;
 $('publicReportForm').addEventListener('submit',async e=>{
  e.preventDefault();const status=$('repStatus');
  if(reportSending)return;
- if(!sb){status.textContent='先に管理者ログイン画面でSupabase接続設定を適用してください。';return;}
+ if(!sb){status.textContent='接続を確認できません。時間をおいて再読み込みしてください。';return;}
  if($('repWebsite').value.trim()){status.textContent='送信を受け付けました。';return;}
- const local=$('repName').value.trim(),area=$('repArea').value.trim(),origin=$('repOrigin').value;
- if(!local||!area||!['personal','heard','literature','other'].includes(origin)||!$('repConsent').checked){status.textContent='必須項目と同意欄を確認してください。';return;}
+ const local=$('repName').value.trim(),speciesName=$('repSpecies').value.trim(),area=$('repArea').value.trim(),origin=$('repOrigin').value;
+ if(!local||!speciesName||!area||!['personal','heard','literature','other'].includes(origin)||!$('repConsent').checked){status.textContent='必須項目と同意欄を確認してください。';return;}
  reportSending=true;$('repSubmit').disabled=true;status.textContent='送信中…';
  try{
   const {error}=await sb.rpc('submit_fish_report',{
    p_local_name:local,p_location_text:area,p_information_source:origin,
-   p_standard_name:$('repSpecies').value.trim()||null,
+   p_standard_name:speciesName,
    p_description:$('repDescription').value.trim()||null,
    p_contact_email:null
   });
@@ -207,18 +218,6 @@ $('refRows').addEventListener('click',e=>{
  $('syncStatus').textContent+=' / 資料名で検索中（原簿の資料名と一致しない場合は0件となります）';
 });
 // GitHub Pages configuration: public project URL and publishable key only.
-window.addEventListener('DOMContentLoaded', async () => {
-  const cfg=window.AICHI_FISH_CONFIG||{};
-  const url=String(cfg.supabaseUrl||'').trim();
-  const key=String(cfg.supabasePublishableKey||'').trim();
-  if (!url || !key || url.includes('YOUR_PROJECT')) {
-    $('syncStatus').textContent='公開用の接続設定が未完了です。管理者にお問い合わせください。';
-    $('refStatus').textContent='接続設定が未完了です。';
-    return;
-  }
-  $('sbUrl').value=url;
-  $('sbKey').value=key;
-  $('connectBtn').click();
-});
+window.addEventListener('DOMContentLoaded', initializeSupabase);
 $('loadApproved').onclick=async()=>{if(!sb){$('approvedStatus').textContent='管理者画面で接続設定を適用してください。';return}const {data,error}=await sb.rpc('list_approved_reports');if(error){$('approvedStatus').textContent='取得エラー：'+error.message;return}$('approvedStatus').textContent=data.length+'件';$('approvedRows').innerHTML=data.map(r=>`<tr><td>${esc(r.local_name)}</td><td>${esc(r.standard_name||'')}</td><td>${esc(r.location_text)}</td><td>${esc(r.description||'')}</td></tr>`).join('')||'<tr><td colspan="4">承認済みの報告はありません。</td></tr>'};
 </script></body></html>
