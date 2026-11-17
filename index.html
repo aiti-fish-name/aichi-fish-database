@@ -22,7 +22,7 @@ table{font-size:16px}th,td{padding:13px 14px}
 <h3>4. 情報提供について</h3><p>愛知県内で現在または過去に使われた魚類の地方名について、情報提供を受け付けています。投稿内容は管理者が確認し、公開の可否を判断します。文献等の出典がある場合は可能な範囲で照合し、裏付けが確認できない場合も、聞き取り・伝承に基づく未検証の報告であることを明示して公開することがあります。</p><p>投稿された記録は、今後の学術研究、調査報告、論文等に利用する場合があります。ご理解のうえで情報をご提供ください。投稿者の氏名・メールアドレスは求めません。投稿本文に個人情報や第三者の権利を侵害する内容を記載しないでください。内容は公開前に一部編集、非公開または削除する場合があります。</p>
 <h3>5. 著作権・利用条件</h3><p>本データベースは、文献および聞き取り調査から得られた情報を独自に整理したものです。地方名や記録地域などの事実情報そのものは、一般に著作権の保護対象とはなりません。一方、元資料の文章・図表等の著作物の権利は、それぞれの権利者に帰属します。本サイト独自の文章・構成等についても、法令に従ってご利用ください。</p><p>研究・出版等で利用する際は、可能な限り原資料を確認し、適切な出典を明示してください。</p>
 <h3>6. 免責事項</h3><p>掲載情報の正確性確保に努めていますが、個人による収集・整理のため、誤記、欠落、解釈の相違、古い分類名などが含まれる可能性があります。利用に際しては必要に応じて原資料をご確認ください。</p><p>利用条件を確認した情報を掲載するよう努めていますが、権利上の問題や誤りがある場合は上記連絡先までお知らせください。確認のうえ、必要に応じて訂正・非公開化・削除等を行います。</p>
-<h3>7. 更新について</h3><p>新たな文献や聞き取り、情報提供等に応じて、掲載内容を予告なく追加・修正・削除する場合があります。</p><p class="muted">サイト版：Ver.5.3 ／ データ更新：随時（更新履歴は管理者が確認）</p>
+<h3>7. 更新について</h3><p>新たな文献や聞き取り、情報提供等に応じて、掲載内容を予告なく追加・修正・削除する場合があります。</p><p class="muted">サイト版：Ver.5.4 ／ データ更新：随時（更新履歴は管理者が確認）</p>
 </section></div><div id="adminView" class="view"><section class="panel"><h2>管理者ログイン</h2><p class="hint">Supabase Authentication に接続して、管理者登録の有無を確認します。認証情報はSupabaseに直接送信されます。</p>
 
 <div id="loginFields" hidden class="adminbox"><form id="loginForm" class="formgrid"><div><label for="loginEmail">管理者メールアドレス</label><input id="loginEmail" type="email" required autocomplete="username"></div><div><label for="loginPassword">パスワード</label><input id="loginPassword" type="password" required autocomplete="current-password"></div><div class="wide"><button class="primary" type="submit">ログイン</button> <button id="logoutBtn" type="button">ログアウト</button></div></form></div>
@@ -34,6 +34,10 @@ table{font-size:16px}th,td{padding:13px 14px}
 <form id="adminRefForm" class="formgrid spaced"><input id="adminRefId" type="hidden"><div class="wide"><label for="adminRefCitation">資料名（必須）</label><input id="adminRefCitation" required maxlength="500"></div><div><label for="adminRefAuthor">著者・編者（任意）</label><input id="adminRefAuthor" maxlength="500"></div><div><label for="adminRefYear">刊行年（任意）</label><input id="adminRefYear" maxlength="80" placeholder="例：2026、不明なら空欄"></div><div class="wide"><label><input id="adminRefPublic" type="checkbox" style="width:auto" checked> 公開する</label></div><div class="wide"><button class="primary" type="submit" id="adminRefSave">参考文献を保存</button><button type="button" id="adminRefReset">入力をクリア</button><p class="feedback" id="adminRefStatus" role="status"></p></div></form>
 <h3>地方名の登録・編集</h3><p class="hint">登録した記録はSupabaseに保存されます。検索画面は再読み込みで反映されます。</p>
 <form id="fishEditForm" class="formgrid"><input id="editId" type="hidden"><div><label for="editName">地方名（必須）</label><input id="editName" required maxlength="120"></div><div><label for="editSpecies">標準和名</label><input id="editSpecies" maxlength="150"></div><div><label for="editArea">記録地域</label><input id="editArea" maxlength="300"></div><div><label for="editYear">資料採集年</label><input id="editYear" maxlength="80"></div><div class="wide"><label for="editReference">参考文献（登録済みの文献から選択・必須）</label><select id="editReference" required><option value="">文献を選択してください</option></select><p class="hint" id="editReferenceHelp">登録済みの公開参考文献を選択します。出典名と文献IDは同時に保存されます。</p></div><div class="wide"><label><input id="editPublic" type="checkbox" checked style="width:auto"> 公開する</label></div><div class="wide"><button class="primary" type="submit">記録を保存</button> <button id="clearEdit" type="button">入力をクリア</button></div></form><p id="editStatus" role="status"></p>
+<h3>地方名のCSV一括登録（管理者専用）</h3><p class="hint">UTF-8形式のCSVを読み込みます。まずプレビューで確認し、問題がなければ新規記録として追加します。既存記録は上書きしません。初期設定は非公開です。</p>
+<div class="actions"><button type="button" id="bulkTemplate">CSV入力例を保存</button></div>
+<div class="formgrid"><div class="wide"><label for="bulkFile">CSVファイル（最大200行／回）</label><input id="bulkFile" type="file" accept=".csv,text/csv"></div><div class="wide"><label><input type="checkbox" id="bulkPublish" style="width:auto"> 登録直後から公開する（初期値：非公開）</label></div></div>
+<p id="bulkStatus" class="feedback" role="status" aria-live="polite">CSVを選択すると内容を確認できます。</p><div class="tablewrap"><table><thead><tr><th>行</th><th>地方名</th><th>標準和名</th><th>地域</th><th>資料採集年</th><th>文献ID・資料名</th><th>確認</th></tr></thead><tbody id="bulkPreview"></tbody></table></div><div class="actions"><button type="button" id="bulkSubmit" class="primary" disabled>確認した記録を一括登録</button><button type="button" id="bulkReset">入力を取り消す</button></div>
 <h3>Supabaseの記録（新しい順）</h3><button id="refreshFish" type="button">一覧を更新</button><div class="tablewrap"><table><thead><tr><th>ID</th><th>地方名</th><th>標準和名</th><th>地域</th><th>状態</th><th>操作</th></tr></thead><tbody id="onlineFishRows"></tbody></table></div>
 <h3>投稿審査</h3><button id="refreshReports" type="button">投稿一覧を更新</button><p id="moderationStatus" role="status"></p><div class="tablewrap"><table><thead><tr><th>ID</th><th>地方名・地域</th><th>投稿内容</th><th>状態</th><th>操作</th></tr></thead><tbody id="moderationRows"></tbody></table></div>
 </div>
@@ -154,6 +158,87 @@ $('fishEditForm').onsubmit=async e=>{e.preventDefault();try{requireAdmin();const
  const q=id?sb.from('fish_names').update(obj).eq('id',Number(id)):sb.from('fish_names').insert(obj);const {error}=await q;if(error)throw error;
  $('editStatus').textContent='保存しました（Supabase）。';$('clearEdit').click();await refreshOnlineFish();await loadPublicRecords();
  }catch(err){$('editStatus').textContent='保存できません：'+err.message}};
+// CSV bulk import. New records only; no overwrite of existing records.
+let bulkRows=[],bulkIssues=[],bulkBusy=false;
+const bulkHeaders=['地方名','標準和名','記録地域','資料採集年','文献ID'];
+function bulkCSVParse(text){
+ const rows=[];let row=[],cell='',quoted=false;
+ text=text.replace(/^\uFEFF/,'');
+ for(let i=0;i<text.length;i++){
+  const c=text[i];
+  if(quoted){if(c==='"'&&text[i+1]==='"'){cell+='"';i++}else if(c==='"')quoted=false;else cell+=c;}
+  else if(c==='"'){if(cell!=='')throw new Error('引用符の位置が不正です');quoted=true;}
+  else if(c===','){row.push(cell);cell='';}
+  else if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);row=[];cell='';}
+  else cell+=c;
+ }
+ if(quoted)throw new Error('閉じていない引用符があります');
+ row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);
+ return rows;
+}
+function bulkCSVCell(x){let s=String(x??'');return /[",\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;}
+$('bulkTemplate').onclick=()=>{
+ const content='\uFEFF'+bulkHeaders.join(',')+'\r\n'+['例の地方名','例の標準和名','例の地域','2026','159'].map(bulkCSVCell).join(',')+'\r\n';
+ const url=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='地方名一括登録_入力例.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ $('bulkStatus').textContent='入力例は架空の記録です。文献IDを実在する登録済みIDに置き換え、例の行を削除して使用してください。';
+};
+function bulkReset(){bulkRows=[];bulkIssues=[];$('bulkFile').value='';$('bulkPreview').replaceChildren();$('bulkSubmit').disabled=true;$('bulkStatus').textContent='CSVを選択すると内容を確認できます。';}
+$('bulkReset').onclick=bulkReset;
+$('bulkFile').onchange=async()=>{
+ bulkRows=[];bulkIssues=[];$('bulkSubmit').disabled=true;$('bulkPreview').replaceChildren();
+ try{
+  requireAdmin();const file=$('bulkFile').files[0];if(!file)return;
+  if(file.size>1024*1024)throw new Error('CSVは1MB以下にしてください');
+  const raw=bulkCSVParse(await file.text());if(!raw.length)throw new Error('CSVが空です');
+  const headers=raw.shift().map(x=>x.trim());if(headers.length!==bulkHeaders.length||headers.some((h,i)=>h!==bulkHeaders[i]))throw new Error('列名・列順が異なります。入力例のCSVを使用してください');
+  if(!raw.length||raw.length>200)throw new Error('データ行は1～200件にしてください');
+  // Read existing records with administrator privileges, including hidden rows.
+  const existing=new Set();
+  for(let start=0;;start+=500){
+   const {data,error}=await sb.from('fish_names').select('local_name,standard_name,location_text,collected_year,reference_id').order('id',{ascending:true}).range(start,start+499);
+   if(error)throw error;for(const r of data)existing.add(bulkKey(r));if(data.length<500)break;if(start>100000)throw new Error('既存記録の確認件数が上限を超えました');
+  }
+  const known=new Map(adminReferences.map(r=>[String(r.id),r]));
+  if(!known.size)throw new Error('参考文献一覧が読み込まれていません。文献一覧を更新してください');
+  const seen=new Set();
+  bulkRows=raw.map((cells,i)=>{
+   const issues=[];if(cells.length!==5)issues.push('列数が不正');
+   const [local_name,standard_name,location_text,collected_year,refText]=[0,1,2,3,4].map(k=>String(cells[k]??'').trim());
+   const ref=known.get(refText);if(!local_name)issues.push('地方名が空欄');if(local_name.length>120)issues.push('地方名が長すぎます');
+   if(standard_name.length>150||location_text.length>300||collected_year.length>80)issues.push('文字数超過');
+   if(!/^\d+$/.test(refText)||!ref)issues.push('文献IDが存在しません');else if(!ref.is_public)issues.push('非公開文献IDです');
+   const obj={local_name,standard_name:standard_name||null,location_text:location_text||null,collected_year:collected_year||null,reference_id:ref?ref.id:null,source_text:ref?ref.citation:null};
+   const key=bulkKey(obj);if(existing.has(key))issues.push('既存記録と重複の可能性');if(seen.has(key))issues.push('CSV内で重複の可能性');seen.add(key);
+   return {line:i+2,obj,ref,issues};
+  });
+  bulkIssues=bulkRows.filter(r=>r.issues.length);
+  $('bulkPreview').innerHTML=bulkRows.map(r=>'<tr><td>'+r.line+'</td><td>'+esc(r.obj.local_name)+'</td><td>'+esc(r.obj.standard_name||'')+'</td><td>'+esc(r.obj.location_text||'')+'</td><td>'+esc(r.obj.collected_year||'')+'</td><td>'+esc(r.ref?('#'+r.ref.id+' '+r.ref.citation):'不明')+'</td><td>'+esc(r.issues.join('／')||'OK')+'</td></tr>').join('');
+  $('bulkStatus').textContent='読み込み '+bulkRows.length+'件／要確認 '+bulkIssues.length+'件。'+(bulkIssues.length?'要確認の行を修正したCSVを再読み込みしてください。':'登録前のプレビューを確認してください。');
+  $('bulkSubmit').disabled=bulkIssues.length>0;
+ }catch(err){bulkRows=[];$('bulkStatus').textContent='読み込み失敗：'+(err.message||String(err));}
+};
+function bulkKey(r){return [r.local_name,r.standard_name,r.location_text,r.collected_year,String(r.reference_id??'')].map(norm).join('\u001f');}
+$('bulkSubmit').onclick=async()=>{
+ if(bulkBusy||!bulkRows.length||bulkIssues.length)return;
+ try{
+  requireAdmin();
+  const publish=$('bulkPublish').checked;
+  if(!confirm(bulkRows.length+'件を新規登録します。'+(publish?'公開状態で保存します。':'非公開状態で保存します。')+' 既存データは上書きしません。続行しますか？'))return;
+  bulkBusy=true;$('bulkSubmit').disabled=true;
+  let done=0;
+  // One-row inserts: failures stop immediately and display how many succeeded.
+  for(const r of bulkRows){
+   $('bulkStatus').textContent='登録中：'+done+' / '+bulkRows.length+'件';
+   const {error}=await sb.from('fish_names').insert({...r.obj,is_public:publish});
+   if(error)throw new Error('CSV '+r.line+'行目：'+error.message);
+   done++;
+  }
+  bulkReset();$('bulkStatus').textContent=done+'件の新規登録が完了しました。検索画面を更新してください。';
+  await refreshOnlineFish();await loadPublicRecords();
+ }catch(err){$('bulkStatus').textContent='途中停止：'+(err.message||String(err))+'。一部登録済みの可能性があります。再実行前に一覧を確認してください。';}
+ finally{bulkBusy=false;$('bulkSubmit').disabled=!bulkRows.length||bulkIssues.length>0;}
+};
+
 // Administrator bibliography management. RLS enforces permissions on the server.
 let adminReferences=[];
 function resetAdminReferenceForm(){
