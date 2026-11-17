@@ -22,12 +22,16 @@ table{font-size:16px}th,td{padding:13px 14px}
 <h3>4. 情報提供について</h3><p>愛知県内で現在または過去に使われた魚類の地方名について、情報提供を受け付けています。投稿内容は管理者が確認し、公開の可否を判断します。文献等の出典がある場合は可能な範囲で照合し、裏付けが確認できない場合も、聞き取り・伝承に基づく未検証の報告であることを明示して公開することがあります。</p><p>投稿された記録は、今後の学術研究、調査報告、論文等に利用する場合があります。ご理解のうえで情報をご提供ください。投稿者の氏名・メールアドレスは求めません。投稿本文に個人情報や第三者の権利を侵害する内容を記載しないでください。内容は公開前に一部編集、非公開または削除する場合があります。</p>
 <h3>5. 著作権・利用条件</h3><p>本データベースは、文献および聞き取り調査から得られた情報を独自に整理したものです。地方名や記録地域などの事実情報そのものは、一般に著作権の保護対象とはなりません。一方、元資料の文章・図表等の著作物の権利は、それぞれの権利者に帰属します。本サイト独自の文章・構成等についても、法令に従ってご利用ください。</p><p>研究・出版等で利用する際は、可能な限り原資料を確認し、適切な出典を明示してください。</p>
 <h3>6. 免責事項</h3><p>掲載情報の正確性確保に努めていますが、個人による収集・整理のため、誤記、欠落、解釈の相違、古い分類名などが含まれる可能性があります。利用に際しては必要に応じて原資料をご確認ください。</p><p>利用条件を確認した情報を掲載するよう努めていますが、権利上の問題や誤りがある場合は上記連絡先までお知らせください。確認のうえ、必要に応じて訂正・非公開化・削除等を行います。</p>
-<h3>7. 更新について</h3><p>新たな文献や聞き取り、情報提供等に応じて、掲載内容を予告なく追加・修正・削除する場合があります。</p><p class="muted">サイト版：Ver.5.2 ／ データ更新：随時（更新履歴は管理者が確認）</p>
+<h3>7. 更新について</h3><p>新たな文献や聞き取り、情報提供等に応じて、掲載内容を予告なく追加・修正・削除する場合があります。</p><p class="muted">サイト版：Ver.5.3 ／ データ更新：随時（更新履歴は管理者が確認）</p>
 </section></div><div id="adminView" class="view"><section class="panel"><h2>管理者ログイン</h2><p class="hint">Supabase Authentication に接続して、管理者登録の有無を確認します。認証情報はSupabaseに直接送信されます。</p>
 
 <div id="loginFields" hidden class="adminbox"><form id="loginForm" class="formgrid"><div><label for="loginEmail">管理者メールアドレス</label><input id="loginEmail" type="email" required autocomplete="username"></div><div><label for="loginPassword">パスワード</label><input id="loginPassword" type="password" required autocomplete="current-password"></div><div class="wide"><button class="primary" type="submit">ログイン</button> <button id="logoutBtn" type="button">ログアウト</button></div></form></div>
 <p id="authMessage" class="feedback" role="status" style="margin-top:18px">接続を確認しています。</p>
 <div id="authVerified" class="adminbox" hidden><h3>管理者認証：成功</h3><p>管理者権限がデータベース側で確認できました。</p><p class="mutedline">管理者専用の登録・編集・投稿審査を利用できます。操作はSupabaseの本番データベースに反映されます。登録・編集した内容は公開設定に応じて反映されます。</p><button id="testReadBtn">登録済み地方名の件数を確認</button><p id="readResult" class="feedback"></p>
+<h3>参考文献の管理</h3><p class="hint">新しい文献の登録、既存文献の書誌情報修正ができます。文献名を変更した場合、関連する地方名記録の出典名もデータベース側で連動更新されます（Ver.5.3用SQL適用後）。</p>
+<div class="actions"><button id="refreshAdminRefs" type="button">文献一覧を更新</button><button id="newAdminRef" type="button">新規文献を登録</button></div>
+<div class="formgrid"><div class="wide"><label for="adminRefSearch">登録済み文献を検索（非公開文献も含む）</label><input id="adminRefSearch" placeholder="文献名・著者・刊行年で検索"></div><div class="wide"><label for="adminRefSelect">編集する文献</label><select id="adminRefSelect"><option value="">新規登録（文献を選択すると編集）</option></select></div></div>
+<form id="adminRefForm" class="formgrid spaced"><input id="adminRefId" type="hidden"><div class="wide"><label for="adminRefCitation">資料名（必須）</label><input id="adminRefCitation" required maxlength="500"></div><div><label for="adminRefAuthor">著者・編者（任意）</label><input id="adminRefAuthor" maxlength="500"></div><div><label for="adminRefYear">刊行年（任意）</label><input id="adminRefYear" maxlength="80" placeholder="例：2026、不明なら空欄"></div><div class="wide"><label><input id="adminRefPublic" type="checkbox" style="width:auto" checked> 公開する</label></div><div class="wide"><button class="primary" type="submit" id="adminRefSave">参考文献を保存</button><button type="button" id="adminRefReset">入力をクリア</button><p class="feedback" id="adminRefStatus" role="status"></p></div></form>
 <h3>地方名の登録・編集</h3><p class="hint">登録した記録はSupabaseに保存されます。検索画面は再読み込みで反映されます。</p>
 <form id="fishEditForm" class="formgrid"><input id="editId" type="hidden"><div><label for="editName">地方名（必須）</label><input id="editName" required maxlength="120"></div><div><label for="editSpecies">標準和名</label><input id="editSpecies" maxlength="150"></div><div><label for="editArea">記録地域</label><input id="editArea" maxlength="300"></div><div><label for="editYear">資料採集年</label><input id="editYear" maxlength="80"></div><div class="wide"><label for="editReference">参考文献（登録済みの文献から選択・必須）</label><select id="editReference" required><option value="">文献を選択してください</option></select><p class="hint" id="editReferenceHelp">登録済みの公開参考文献を選択します。出典名と文献IDは同時に保存されます。</p></div><div class="wide"><label><input id="editPublic" type="checkbox" checked style="width:auto"> 公開する</label></div><div class="wide"><button class="primary" type="submit">記録を保存</button> <button id="clearEdit" type="button">入力をクリア</button></div></form><p id="editStatus" role="status"></p>
 <h3>Supabaseの記録（新しい順）</h3><button id="refreshFish" type="button">一覧を更新</button><div class="tablewrap"><table><thead><tr><th>ID</th><th>地方名</th><th>標準和名</th><th>地域</th><th>状態</th><th>操作</th></tr></thead><tbody id="onlineFishRows"></tbody></table></div>
@@ -91,7 +95,7 @@ $('loginForm').onsubmit=async e=>{
   const result=await sb.rpc('is_admin');
   if(result.error)throw result.error;
   if(result.data!==true){await sb.auth.signOut();msg('ログインできましたが、管理者として登録されていません。admin_usersの登録を確認してください。');return}
-  $('authVerified').hidden=false;msg('管理者ログインと権限確認に成功しました。');await refreshOnlineFish();await refreshModeration();
+  $('authVerified').hidden=false;msg('管理者ログインと権限確認に成功しました。');await refreshOnlineFish();await refreshModeration();await refreshAdminReferences();
  }catch(err){msg('ログインまたは権限確認に失敗しました：'+err.message)}
 };
 $('logoutBtn').onclick=async()=>{if(sb)await sb.auth.signOut();$('authVerified').hidden=true;$('loginPassword').value='';$('onlineFishRows').replaceChildren();$('moderationRows').replaceChildren();msg('ログアウトしました。')};
@@ -150,6 +154,60 @@ $('fishEditForm').onsubmit=async e=>{e.preventDefault();try{requireAdmin();const
  const q=id?sb.from('fish_names').update(obj).eq('id',Number(id)):sb.from('fish_names').insert(obj);const {error}=await q;if(error)throw error;
  $('editStatus').textContent='保存しました（Supabase）。';$('clearEdit').click();await refreshOnlineFish();await loadPublicRecords();
  }catch(err){$('editStatus').textContent='保存できません：'+err.message}};
+// Administrator bibliography management. RLS enforces permissions on the server.
+let adminReferences=[];
+function resetAdminReferenceForm(){
+ $('adminRefForm').reset();$('adminRefId').value='';$('adminRefSelect').value='';$('adminRefStatus').textContent='新規文献の登録モードです。';
+}
+function populateAdminReferenceChoices(){
+ const query=norm($('adminRefSearch').value), selected=$('adminRefSelect').value;
+ const choices=adminReferences.filter(r=>[r.citation,r.author,r.publication_year].some(v=>norm(v).includes(query)));
+ $('adminRefSelect').replaceChildren(new Option('新規登録（文献を選択すると編集）',''),...choices.map(r=>new Option('#'+r.id+' '+(r.citation||'名称なし')+(r.is_public?'':' [非公開]'),String(r.id))));
+ if(choices.some(r=>String(r.id)===selected))$('adminRefSelect').value=selected;
+}
+async function refreshAdminReferences(){
+ try{
+  requireAdmin();const all=[];const batch=500;
+  for(let start=0;;start+=batch){
+   const {data,error}=await sb.from('references').select('id,citation,author,publication_year,is_public').order('id',{ascending:true}).range(start,start+batch-1);
+   if(error)throw error;all.push(...data);if(data.length<batch)break;
+   if(start>100000)throw new Error('文献の取得上限を超えました');
+  }
+  adminReferences=all;populateAdminReferenceChoices();$('adminRefStatus').textContent='文献 '+all.length+'件を取得しました（非公開を含む）。';
+ }catch(e){$('adminRefStatus').textContent='文献取得エラー：'+e.message}
+}
+$('refreshAdminRefs').onclick=refreshAdminReferences;
+$('newAdminRef').onclick=resetAdminReferenceForm;
+$('adminRefReset').onclick=resetAdminReferenceForm;
+$('adminRefSearch').addEventListener('input',populateAdminReferenceChoices);
+$('adminRefSelect').onchange=()=>{
+ const r=adminReferences.find(x=>String(x.id)===$('adminRefSelect').value);
+ if(!r){resetAdminReferenceForm();return}
+ $('adminRefId').value=String(r.id);$('adminRefCitation').value=r.citation||'';
+ $('adminRefAuthor').value=r.author||'';$('adminRefYear').value=r.publication_year||'';
+ $('adminRefPublic').checked=!!r.is_public;
+ $('adminRefStatus').textContent='文献ID '+r.id+' を編集中です。';
+};
+$('adminRefForm').onsubmit=async e=>{
+ e.preventDefault();const status=$('adminRefStatus'),save=$('adminRefSave');
+ try{
+  requireAdmin();const citation=$('adminRefCitation').value.trim(),id=$('adminRefId').value;
+  if(!citation)throw new Error('資料名は必須です');
+  const other=adminReferences.find(r=>norm(r.citation)===norm(citation)&&String(r.id)!==id);
+  if(other)throw new Error('同じ資料名が既に登録されています（文献ID '+other.id+'）。');
+  const old=adminReferences.find(r=>String(r.id)===id);
+  const payload={citation,author:$('adminRefAuthor').value.trim()||null,publication_year:$('adminRefYear').value.trim()||null,is_public:$('adminRefPublic').checked};
+  if(old&&old.citation!==citation&&!confirm('資料名を変更すると、この文献IDに紐づく地方名記録の出典名も変更されます。続行しますか？'))return;
+  if(!confirm(id?'文献ID '+id+' を更新しますか？':'新しい参考文献を登録しますか？'))return;
+  save.disabled=true;status.textContent='保存中…';
+  const query=id?sb.from('references').update(payload).eq('id',Number(id)).select('id').single():sb.from('references').insert(payload).select('id').single();
+  const {data,error}=await query;if(error)throw error;
+  await Promise.all([loadReferences(),loadPublicRecords(),refreshAdminReferences()]);
+  resetAdminReferenceForm();status.textContent='文献ID '+data.id+' を保存しました。公開一覧・地方名検索を更新しました。';
+ }catch(err){status.textContent='保存できません：'+(err.message||String(err))}
+ finally{save.disabled=false}
+};
+
 const moderation=new Map();
 async function refreshModeration(){try{requireAdmin();const {data,error}=await sb.from('reports').select('id,local_name,standard_name,location_text,description,status,information_source,submitted_at').order('submitted_at',{ascending:false}).limit(100);if(error)throw error;moderation.clear();data.forEach(r=>moderation.set(String(r.id),r));$('moderationRows').innerHTML=data.map(r=>`<tr><td>${r.id}</td><td>${esc(r.local_name)} / ${esc(r.location_text)}</td><td>${esc(r.description||'')}</td><td>${esc(r.status)}</td><td><button data-status="approved" data-id="${r.id}">承認</button> <button data-status="on_hold" data-id="${r.id}">保留</button> <button data-status="rejected" data-id="${r.id}">却下</button></td></tr>`).join('')||'<tr><td colspan="5">投稿はありません。</td></tr>';
 }catch(e){$('moderationStatus').textContent='投稿取得エラー：'+e.message}}
