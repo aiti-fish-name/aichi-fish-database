@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aiti-fish-name.github.io/aichi-fish-database/sitemap.xml
